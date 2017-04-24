@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+<body>
+<!--
+
+        <div class="form-group col-lg-1">
+            <button class="btn btn-info" type="button" ng-click="onClickAddAddress()" >Dodaj adres</button>
+        </div>-->
+
+<div class="form-group col-lg-1  col-md-1">
+    <label for="addressType">Id</label>
+
+    <div>{{address.id}}</div>
+</div>
+<div class="form-group col-lg-1  col-md-1">
+    <label for="addressType">Typ</label>
+
+    {{address.typ}}
+    <select ng-model="address.typ" class="form-control">
+        <option value="-1">Wybierz rodzaj adresu</option>
+        <option ng-repeat="type in dictAddressType"
+                value="{{type.wartosc}}">{{type.opis}}
+        </option>
+    </select>
+</div>
+
+<div class="form-group col-lg-2  col-md-3">
+    <label>Wojewodztwo</label>
+
+    {{address.wojId}}
+    <select ng-model="address.wojId" class="form-control">
+        <option value="-1">Wybierz wojewodztwo</option>
+        <option ng-repeat="type in dictWojewodztwa"
+                value="{{type.wartosc}}">{{type.opis}}
+        </option>
+    </select>
+</div>
+
+<div class="has-success has-feedback col-lg-2 col-md-2">
+    <label>Miasto</label>
+    <input type="text" required="required" ng-model="address.miejscowosc" class="form-control"
+           placeholder="Miasto"
+           title="Miasto">
+    <!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+    <span id="inputSuccess2Status" class="sr-only">(success)</span>-->
+</div>
+
+
+<div class="form-group col-lg-2  col-md-2">
+    <label>Ulica</label>
+    <input type="text" required="required" ng-model="address.ulica" class="form-control"
+           placeholder="Ulica"
+           title="Ulica">
+</div>
+
+
+<div class="form-group col-lg-1  col-md-2">
+    <label>Numer domu</label>
+    <input type="text" ng-model="address.numerDomu" class="form-control"
+           placeholder="Numer domu"
+           title="Numer domu">
+</div>
+
+<div class="form-group col-lg-1  col-md-2">
+    <label>Kod pocztowy </label>
+    <input type="text" required="required" ng-model="address.kodPocztowy" class="form-control"
+           placeholder="Kod pocztowy"
+           title="Kod pocztowy">
+</div>
+
+<div class="form-group col-lg-1  col-md-2">
+    <label>Poczta</label>
+    <input type="text" required="required" ng-model="address.poczta" class="form-control"
+           placeholder="Poczta"
+           title="Poczta">
+</div>
+<div class="form-group col-lg-1  col-md-1">
+    <label>Aktualny</label>
+    <input style="width:undefined;" type="checkbox" class="form-control" ng-model="address.aktualne">
+</div>
+<div class="form-group col-lg-1  col-md-1">
+    <label>usuń</label>
+   <span class="glyphicon glyphicon-remove" style="cursor:pointer;" ng-click="onClickDeleteAddress(address);"
+         title="Usuń adres"></span>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+
+<div class="" ng-controller="EgrCompanyEditCtr as editCtrl" >
+    <form class=" ng-pristine ng-valid" role="form" ng-submit="editCtrl.saveCompany()" >
+
+
+        <fieldset>
+
+            <legend>Podstawowe informacje</legend>
+            <div class="form-group row">
+
+                <div class="col-lg-1 col-md-1">
+                    <label>Kod</label>
+                    <div style="width:70px">
+                        {{editedCompany.klKod}}
+                    </div>
+                </div>
+
+                <div class="col-lg-1 col-md-1">
+                    <label>Nip</label>
+                    <input ng-disabled="isNipChecked" ng-model="editedCompany.kldNip" type="text"
+                           data-mask="##########" ng-maxlength="10" maxlength="10"
+                           class="form-control" placeholder="Nip" width="100px">
+                    checked: {{isNipChecked}}
+                </div>
+
+                <div class="col-lg-2 col-md-2">
+                    <button ng-show="!isNipChecked" type="button" ng-click="onNipCheck()" class="btn btn-default">
+                    Sprawdź NIP
+                </button>
+
+                    <button type="button" ng-click="onWypelnijTestowo()" class="btn btn-default" style="display:inline-block">
+                        Wypełnij testowo
+                    </button>
+
+                    <button ng-show="isNipChecked" type="button" ng-click="onNipChange()" class="btn btn-default "
+                            style="display:inline-block">Zmień
+                        NIP
+                    </button>
+                </div>
+
+                <div class="col-lg-2 col-md-2">
+                    <label>Regon</label>
+                    <input id="regon" type="text" ng-model="editedCompany.kldRegon" class="form-control"
+                           placeholder="Regon" width="100px">
+                </div>
+
+            </div>
+
+
+            <!-- koniec  1 wiersza -->
+            <div class="row form-group" ng-show="isNipChecked || true">
+
+                <div class="col-lg-2 col-md-2">
+                    <label>Typ</label>
+                    <select ng-model="editedCompany.kldTyp" class="form-control">
+                        <option value="-1">Typ</option>
+                        <option ng-repeat="type in dictClientType" value="{{type.wartosc}}">{{type.opis}}</option>
+
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-2">
+                    <label>Forma własności</label>
+                    <select ng-model="editedCompany.kldFormaWlasnosci" class="form-control"  required="required">
+                        <option value="-1">Wybierz formę własności</option>
+                        <option ng-repeat="type in dictOwnerType" value="{{type.wartosc}}">{{type.opis}}</option>
+
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <label>Skrót</label>
+                    <input type="text" required="required" ng-model="editedCompany.klSkrot" class="form-control"
+                           placeholder="Skrót">
+                </div>
+
+                <div class="col-lg-7 col-md-7">
+                    <label>Pełna nazwa</label>
+                    <input type="text" required="required" ng-model="editedCompany.kldNazwa" class="form-control"
+                           placeholder="Pełna nazwa">
+                </div>
+
+                <!-- koniec wiersza 2 -->
+            </div>
+
+            </fieldset>
+        <fieldset>
+
+            <legend style="height:40px">
+                <span >Adresy</span>
+                <button style="float:right" class="btn btn-info" type="button" ng-click="onClickAddAddress()">Dodaj adres</button>
+            </legend>
+
+            <div ng-include="'pl/egeria/companys/parts/elCompanyAddress.html'"
+                 ng-repeat='address in editedCompany.adresy' class="row"/>
+
+
+            <!-- wiersz 3 -->
+        </fieldset>
+
+        <fieldset>
+            <legend>Cechy szpitala</legend>
+
+            <div class="row form-group">
+
+                <div class="col-lg-2 col-md-3">
+                    <label>Organ założycielski</label>
+                    <select ng-model="editedCompany.kodOrganZalozycielski" class="form-control m-b has-error">
+                        <option value="-1">Wybierz rodzaj</option>
+                        <option ng-repeat="type in dictOrganZalozycielski" value="{{type.wartosc}}">{{type.opis}}
+                        </option>
+                    </select>
+                </div>
+
+
+                <div class="col-lg-1 col-md-2">
+                    <label>Powierzchnia</label>
+                    <input type="text" ng-model="editedCompany.powierzchnia" class="form-control"
+                           placeholder="Powierzchnia"
+                           data-mask="9999999">
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <label>Liczba łóżek</label>
+                    <input type="text" ng-model="editedCompany.liczbaLozek" class="form-control"
+                           placeholder="Liczba łóżek">
+                </div>
+
+                <div class="col-lg-1 col-md-2">
+                    <label>Bloki operacyjne</label>
+                    <input type="checkbox"
+                           ng-model="editedCompany.blokiOperacyjne" class="form-control" placeholder="Bloki operacyjne">
+                </div>
+
+                <div class="col-lg-2 col-md-2">
+                    <label>Rodzaj zabudowy</label>
+
+                    <div style="btn-group">
+                        <input type="radio" ng-model="editedCompany.rodzajZabudowy"
+                               value="ZABUDOWA_MONOLIT">Prawilonowa</input>
+                        <input type="radio" ng-model="editedCompany.rodzajZabudowy" value="ZABUDOWA_PAWILONOWA">Monolityczna</input>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <label>Ilość lokalizacji</label>
+
+                    <div style="btn-group">
+                        <input type="radio" ng-model="editedCompany.iloscLokalizacji"
+                               value="JEDNA LOKALIZACJA">Jedna</input>
+                        <input type="radio" ng-model="editedCompany.iloscLokalizacji"
+                               value="WIELE LOKALIZACJI">Wiele</input>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col-lg-2 col-md-2">
+                    <button type="button" class="btn" ng-click="navigateBack();">Anuluj</button>
+                    <button type="submit" class="btn btn-primary" >Zapisz</button>
+                </div>
+
+            </div>
+
+
+    </form>
+</div>
+

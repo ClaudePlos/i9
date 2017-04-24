@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<style>
+
+
+    .ctlValueCell {
+        width: 100%;
+        text-align: right;
+        /*font-size:10px;*/
+    }
+    
+    .col-sm-6 {
+      width: 100%;
+    }
+</style>
+<body>
+
+<div class="bray-bg" ng-controller="egeria.CtlController as ctlCtrl">
+    <div class="wrapper wrapper-content">
+        <!--<div class="container">-->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-title form-inline">
+
+                        <div class="form-group">
+                            <label>Zakres:</label>
+                            <select ng-model="ctlCtrl.zakresAnalizy"
+                                    class="form-control input-sm"
+                                    ng-options="zakres.etykieta for zakres in ctlCtrl.zakresyAnalizy"></select>
+                        </div>
+
+                        <div class="form-group">
+                        <label>Okres:</label>
+                        <input type="text" class="form-control input-sm" ng-model="ctlCtrl.mcAnalizy"  style="width:90px;"/>
+                    </div>
+
+                        <div class="form-group">
+                            <label>Jo:</label>
+                            <input type="text" class="form-control input-sm" ng-model="ctlCtrl.jednostka_organizacyjna" style="width:80px;"/>
+                        </div>
+
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="ctlCtrl.onGetKosztyWMc();">Odśwież</button>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-xs btn-info" ng-click="ctlCtrl.onClickOdswiez();">Przelicz dane ponownie
+                                (dłuższe)
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-xs" ng-click="ctlCtrl.onEdytujBudzet();">Edytuj budżet Sk:</button>
+                            <span>Sk:</span>
+                            <input type="text"  class="btn btn-xs" style="width:60px" ng-model="ctlCtrl.edytujBudzetSkKod">
+                            <span>rd:</span>
+                            <input type="text"  class="btn btn-xs"style="width:60px" ng-model="ctlCtrl.edytujBudzetRd">
+                        </div>
+
+
+                        <!--<div class="form-group">-->
+                        <!--<button type="button" ng-click="ctlCtrl.onBudzetTest();">Budżet TEST (nie klikać - PC)</button>-->
+                        <!--</div>-->
+                        <!-- status budzetu -->
+
+                        {{ctlCtrl.selectedRow.rodzajRekordu + " " + ctlCtrl.selectedRow.obPelnyKod+ " " +
+                        ctlCtrl.selectedRow.statusBudzetu}}
+
+                        <button type="button" class="btn"
+                                ng-click="ctlCtrl.onClickZmienStatusBudzetu( ctlCtrl.selectedRow, 'DO_ZATWIERDZENIA')"
+                                ng-if="(ctlCtrl.selectedRow.statusBudzetu == 'NOWY' || ctlCtrl.selectedRow.statusBudzetu =='BRAK') && ctlCtrl.selectedRow.rodzajRekordu =='SUMA' ">
+                            Do akceptacji
+                        </button>
+
+                        <button type="button" class="btn"
+                                ng-click="ctlCtrl.onClickZmienStatusBudzetu( ctlCtrl.selectedRow, 'NOWY')"
+                                ng-if="(ctlCtrl.selectedRow.statusBudzetu == 'DO_ZATWIERDZENIA' || ctlCtrl.selectedRow.statusBudzetu =='DO_ZATWIERDZENIA') && ctlCtrl.selectedRow.rodzajRekordu =='SUMA' ">
+                            Cofnij do edycji
+                        </button>
+
+                        <button type="button" class="btn"
+                                ng-click="ctlCtrl.onClickZmienStatusBudzetu( ctlCtrl.selectedRow, 'ZATWIERDZONY')"
+                                ng-if="(ctlCtrl.selectedRow.statusBudzetu == 'DO_ZATWIERDZENIA' || ctlCtrl.selectedRow.statusBudzetu =='DO_ZATWIERDZENIA') && ctlCtrl.selectedRow.rodzajRekordu =='SUMA' ">
+                            Zatwierdz
+                        </button>
+
+
+                        <div style="width:100%;display:block;">
+                            <div class="form-group">
+                                <label>Opcje:</label>
+                                <input type="checkbox" ng-model="ctlCtrl.pokazuj_wszystkie_obiekty">Pokazuj zerowe
+                                obiekty</input>
+                            </div>
+                            <div class="form-group">
+                                <!--<label>:</label>-->
+                                <input type="checkbox" ng-model="ctlCtrl.pokazuj_budzet"
+                                       ng-change="ctlCtrl.onChangeView()">Pokazuj budżet</input>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-xs" ng-click="ctlCtrl.onClickExcel()" >do Excela</button>
+
+                            </div>
+                            <div class="form-group">
+                                <div style="display:inline" id="div_excel_link"></div>
+                                </div>
+
+                            <div class="ibox-content" style="height:600px;padding-left: 0px;padding-right: 0px;">
+                                <!-- tabelka koszty -->
+                                <div ag-grid="ctlCtrl.ctlGridOptions" class="ag-fresh" style="height:100%;width:100%;">
+
+                                    <!--&lt;!&ndash;table table-stripped table-bordered table-hover&ndash;&gt;-->
+                                    <!--<table class="scroll" style="width:500px;">-->
+                                    <!--<thead>-->
+                                    <!--<tr role="row">-->
+                                    <!--<th>Sk Opis</th>-->
+                                    <!--<th>Przychód</th>-->
+                                    <!--<th>Wsad</th>-->
+                                    <!--<th>Koszty</th>-->
+
+                                    <!--<th ng-repeat="anal in ctlCtrl.kolumnyAnalityk" >{{anal.header}}</th>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--<tbody>-->
+                                    <!--<tr role="row" ng-repeat="row in ctlCtrl.kosztyMc">-->
+                                    <!--<td>-->
+                                    <!--{{row.skOpis}}-->
+                                    <!--</td>-->
+                                    <!--<td>-->
+                                    <!--{{row.przychod.wartosc}}-->
+                                    <!--</td>-->
+
+                                    <!--<td>-->
+                                    <!--{{row.wsad.wartosc}}-->
+                                    <!--</td>-->
+
+                                    <!--<td>-->
+                                    <!--{{row.koszt.wartosc}}-->
+                                    <!--</td>-->
+
+
+                                    <!--&lt;!&ndash; analityki kosztow &ndash;&gt;-->
+                                    <!--<th ng-repeat="anal in ctlCtrl.kolumnyAnalityk" >-->
+                                    <!--{{row.koszt[anal.kod].wartosc}}-->
+                                    <!--</th>-->
+
+                                    <!--</tr>-->
+
+                                    <!--</tbody>-->
+                                    <!--</table>-->
+
+
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- okno z lista ksiegowan -->
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <span> Wykaz księgowań na koncie</span>
+                        </div>
+
+                        <div class="ibox-content" style="height:400px;width:100%">
+                            <!-- tabelka koszty -->
+
+                            <div id="tblListaKsiegowan" name="tblListaKsiegowan"
+                                 ag-grid="ctlCtrl.gridOptionsListaKSiegowan" class="ag-fresh"
+                                 style="height:100%;width:100%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-sm-7">
+                    <div class="ibox">
+
+
+                        <div class="ibox-content" style="height:400px;"> -->
+                            <!-- tabelka koszty -->
+
+                    <!--    </div>
+                    </div>
+
+                </div>
+
+            </div> -->
+            
+            <br>
+
+            <!-- budzet -->
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <span> Budżetowanie</span>
+                        </div>
+
+                        <div class="ibox-content">
+                            <!-- tabelka koszty -->
+
+                            <div id="divBudzetObiektu" name="divBudzetObiektu"
+                                 ng-include="'pl/egeria/ctl/elBudzetMc.html'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+</html>

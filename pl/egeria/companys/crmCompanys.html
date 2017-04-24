@@ -1,0 +1,154 @@
+<div class="wrapper wrapper-content  animated fadeInRight"
+     id="screenMainDiv"
+     ng-controller="ListCompanysCtrl as listCompanysCtrl">
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="ibox">
+                <div class="ibox-title">
+
+                        <span style="display:inline-block;">
+                    <h2>Kontrahenci:</h2>
+                            </span>
+                    <button style="float:right;" class="btn btn-primary" type="button"
+                            ng-click="onClickAddCompany();">
+                        Dodaj firmę
+                    </button>
+
+                </div>
+                <div class="ibox-content">
+
+                    <div style="padding-bottom:5px; ">
+                        <div ng-include="'pl/egeria/companys/parts/companysFilter.html'"></div>
+                    </div>
+                    <div style="height: 500px;" ag-grid="kthGridOptions" class="ag-fresh">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- right part -->
+        <div class="col-sm-4">
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span>
+                        <h5>
+                            {{selectedCompany.kldNazwa}}
+                        </h5>
+                        </span>
+                </div>
+                <div class="ibox-content">
+                    {{selectedCompany}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12 ibox" id="divContactsHistory">
+            <div class="ibox-title">
+                <h5>
+                    Historia kontaktów handlowych:
+                </h5>
+            </div>
+            <div class="ibox-content">
+                <div ng-include="'pl/egeria/companys/parts/elContactsHistory.html'"></div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="row">
+    <div class="col-sm-12 ibox" id="divAddCompany">
+        <div class="ibox-title">
+            <h5>Edycja informacji o firmie</h5>
+        </div>
+        <div class="ibox-content">
+            <div ng-include="'pl/egeria/companys/parts/EgrCompanyEdit.html'"></div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- -->
+<!--<div class="row " ng-controller="ListCompanysCtrl">-->
+
+<!--<div class="ibox-title" style="height:55px;">-->
+<!--<div ibox-tools>-->
+<!--</div>-->
+
+<!--<div ng-include="'pl/egeria/companys/parts/companysFilter.html'"></div>-->
+
+<!--</div>-->
+<!--<div class="ibox-content">-->
+
+<!--&lt;!&ndash; include filter &ndash;&gt;-->
+
+
+<!--<div style="height: 500px;" ag-grid="kthGridOptions" class="ag-fresh">-->
+<!--</div>-->
+<!--class="table table-striped table-bordered table-hover dataTables-example"-->
+<!--<div class="row wrapper border-bottom white-bg page-heading">-->
+<!--<div class="col-lg-10">-->
+<!--<h2>Firmy</h2>-->
+<!--&lt;!&ndash;<ol class="breadcrumb">&ndash;&gt;-->
+<!--&lt;!&ndash;<li>&ndash;&gt;-->
+<!--&lt;!&ndash;<a href="index.html">Home</a>&ndash;&gt;-->
+<!--&lt;!&ndash;</li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li>&ndash;&gt;-->
+<!--&lt;!&ndash;<a>Tables</a>&ndash;&gt;-->
+<!--&lt;!&ndash;</li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li class="active">&ndash;&gt;-->
+<!--&lt;!&ndash;<strong>Data Tables</strong>&ndash;&gt;-->
+<!--&lt;!&ndash;</li>&ndash;&gt;-->
+<!--&lt;!&ndash;</ol>&ndash;&gt;-->
+<!--</div>-->
+<!--<div class="col-lg-2">-->
+
+<!--</div>-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash; div with contacts history &ndash;&gt;-->
+
+<!--<div class="ibox float-e-margins col-lg-5">-->
+<!--right-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--<div class="wrapper wrapper-content animated fadeInRight">-->
+<!--<div class="row">-->
+<!--<div class="col-lg-12">-->
+<!--<div class="ibox float-e-margins">-->
+<!--<div class="ibox-title">-->
+<!--<h5>Lista firm:-->
+<!--<small>Sort, search</small>-->
+<!--</h5>-->
+<!--<div ibox-tools></div>-->
+<!--</div>-->
+<!--<div class="ibox-content">-->
+
+
+<!--&lt;!&ndash;<div style="height: 100%;position:relative;width: 100%">&ndash;&gt;-->
+<!--&lt;!&ndash;<div style="position:absolute;top:0px;bottom:0px">&ndash;&gt;-->
+<!--&lt;!&ndash; &ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<table datatable="" class="table table-striped table-bordered table-hover dataTables-example">&ndash;&gt;-->
+
+<!--&lt;!&ndash;</table>&ndash;&gt;-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

@@ -1,0 +1,61 @@
+<div class="row border-bottom" ng-controller="SearchCtrl as searchCtrl">
+    <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <span minimaliza-sidebar></span>
+
+            <form role="search" class="navbar-form-custom" method="post"
+            >
+                <div class="form-group">
+                    <input type="text" placeholder="Szukaj... " class="form-control"
+                           name="top-search" id="top-search"
+                           ng-model="searchText"
+                           ng-focus="searchCtrl.searchFocus = true;"
+                    ng-blur="searchCtrl.searchFocus = false;">
+
+                </div>
+            </form>
+
+
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <a href="">
+                    <i class="fa fa-sign-out"></i> Log out
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="searchResults" style="width:500px;top:90px;left:10px;position:absolute;z-index:100;
+       -moz-box-shadow: 5px 5px 7px #212121;
+    -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);"
+         ng-show="searchCtrl.showResults"
+         click-outside="searchCtrl.onClickOutside()"
+         class="white-bg border-left border-right border-bottom">
+        <div class="border-bottom" style="width:100%;text-align: center;padding: 10px;border-top:4px solid ;">
+            Znaleziono {{searchCtrl.resultCount}} wyników
+        </div>
+        <div style="position:relative;width:100%;height:250px;overflow: auto">
+            <div ng-repeat="result in searchCtrl.results" style="width:100%;" class="search-result"
+            ng-dblclick="searchCtrl.onDblClickItem(result._source);">
+
+                <div ng-show="result._source.objectType=='Kontrahent'" class="border-bottom " style="padding:10px">
+                    <div>
+                        <i class="fa fa-hospital-o"></i> <strong>{{result._source.kldNazwa}}</strong>
+                        <small class="pull-right text-navy">{{result._source.klKod}}</small>
+                    </div>
+                    <div>
+                        <small>
+                            {{result._source.adrMiejscowosc}},
+                            {{result._source.adrUlica}}&nbsp
+                            {{result._source.adrNumerDomu}}
+                        </small>
+                        <small class="pull-right text-navy">{{result._source.kldNip}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

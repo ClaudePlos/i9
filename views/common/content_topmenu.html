@@ -1,0 +1,35 @@
+<!-- Wrapper-->
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <div ng-include="'views/common/navigation_off_canvas.html'"></div>
+
+    <!-- Page wraper -->
+    <!-- ng-class with current state name give you the ability to extended customization your view -->
+    <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+
+        <!-- Page wrapper -->
+        <div ng-include="'views/common/topnavbar.html'"></div>
+
+        <!--<div class="row wrapper border-bottom white-bg page-heading">-->
+            <!--<div class="col-sm-4">-->
+                <!--<h2>Off canvas menu</h2>-->
+                <!--<ol class="breadcrumb">-->
+                    <!--<li>-->
+                        <!--<a href="index.html">Home</a>-->
+                    <!--</li>-->
+                    <!--<li class="active">-->
+                        <!--<strong>Off canvas menu</strong>-->
+                    <!--</li>-->
+                <!--</ol>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="wrapper wrapper-content  animated fadeInRight article">
+            <div ui-view></div>
+        </div>
+    </div>
+
+    <!-- End page wrapper-->
+
+</div>
+<!-- End wrapper-->

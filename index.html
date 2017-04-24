@@ -1,0 +1,107 @@
+<!--
+* INSPINIA - Responsive Admin Theme
+* Version 2.2
+*
+-->
+
+<!DOCTYPE html>
+<html ng-app="iNaprzod">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title set in pageTitle directive -->
+    <title page-title></title>
+
+    <!-- Font awesome -->
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Bootstrap and Fonts -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Main Inspinia CSS files -->
+    <link href="css/animate.css" rel="stylesheet">
+    <link id="loadBefore" href="css/googleFonts.css" rel="stylesheet">
+    <link id="loadBefore" href="css/style.css" rel="stylesheet">
+    <link id="loadBefore" href="css/inaprzod.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+
+<!-- ControllerAs syntax -->
+<!-- Main controller with serveral data used in Inspinia theme on diferent view -->
+
+<body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}"  landing-scrollspy id="page-top">
+
+<!-- Main view  -->
+<div ng-controller="LoginCtrl as loginCtrl">
+<div ui-view></div>
+    </div>
+
+<!-- jQuery and Bootstrap -->
+<script src="js/jquery/jquery-2.1.1.min.js"></script>
+<script src="js/plugins/jquery-ui/jquery-ui.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+
+<!-- MetsiMenu -->
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<!-- SlimScroll -->
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Peace JS -->
+<script src="js/plugins/pace/pace.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="js/inspinia.js"></script>
+
+<!-- Main Angular scripts-->
+<script src="js/angular/angular.min.js"></script>
+<script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+<script src="js/ui-router/angular-ui-router.min.js"></script>
+<script src="js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+
+<script src="js/extra/clickoutside.directive.js"></script>
+<script src="js/angular/angular-cookies.min.js"></script>
+<script src="js/toastr.min.js"></script>
+
+<!-- Anglar App Script -->
+<script src="js/app.js"></script>
+<script src="js/config.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/controllers.js"></script>
+
+<!-- load my controllers -->
+<script src="js/extra/angular-grid.js"></script>
+<link rel="stylesheet" type="text/css" href="css/angular-grid.css">
+<link rel="stylesheet" type="text/css" href="css/theme-fresh.css">
+<link rel="stylesheet" type="text/css" href="css/toastr.css" >
+<script src="consts.js"></script>
+<!-- models -->
+<script src="pl/global/error/GlobalErrorHandler.js"></script>
+<!-- models -->
+<script src="pl/egeria/companys/model/Company.js"></script>
+<!-- services -->
+<script src="pl/mnt/utils/ui/MntGridDataProvider.js"></script>
+<script src="pl/egeria/companys/services/CompanysService.js"></script>
+<script src="pl/egeria/dictionaries/services/DictionariesService.js"></script>
+<script src="pl/global/search/SearchService.js"></script>
+<script src="pl/global/login/LoginService.js"></script>
+<!---->
+<script src="pl/global/login/LoginCtrl.js"></script>
+
+<script src="pl/global/search/SearchCtrl.js"></script>
+<script src="pl/egeria/companys/ListCompanysCtrl.js"></script>
+
+<script src="pl/egeria/companys/controllers/EgrCompanyEditCtrl.js"></script>
+<script src="pl/egeria/companys/controllers/EgrCompanyContactsCtrl.js"></script>
+
+<!-- ctl -->
+<script src="pl/egeria/ctl/CtlService.js"></script>
+<script src="pl/egeria/ctl/CtlController.js"></script>
+<script src="pl/egeria/ctl/CtlBudController.js"></script>
+
+</body>
+</html>

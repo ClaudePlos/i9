@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<style>
+    .ctlTable > tbody > tr > td {
+        padding: 0px;
+    }
+</style>
+<div ng-controller="CtlBudController as ctlBudController" id="tblBudzet" name="tblBudzet">
+
+    <div class="row" style="padding:10px;">
+        <div>
+            <h4><strong>{{ctlBudController.budzetObiektu.skKod}} - {{ctlBudController.budzetObiektu.skOpis}}</strong></h4>
+        </div>
+
+        <span>okres:<strong>{{ctlBudController.budzetObiektu.okres}}</strong></span>
+        <span>rd:<strong>{{ctlBudController.budzetObiektu.rodzajDzialalnosci}}</strong></span>
+        <span>status:<strong>{{ctlBudController.budzetObiektu.status}}</strong></span>
+
+        <button type="button" class="form-element btn btn-primary" ng-click="ctlBudController.onClickSaveBud()"
+                ng-disabled="!ctlBudController.budzetObiektu.modified"
+                ng-if="ctlBudController.budzetObiektu.status == 'NOWY'">
+            Zapisz budżet
+        </button>
+
+
+
+        <button type="button" class="form-element btn" ng-click="ctlBudController.onClickDodajMiesiac()">
+            Dodatkowy miesiąc:
+        </button>
+
+        <input type="text" class="form-element" ng-model="ctlBudController.mcDoDodania">
+
+        </input>
+
+
+    </div>
+
+
+    <table class="table table-striped table-bordered table-hover dataTables-example dataTable ctlTable">
+        <thead>
+        <tr style="font-weight: bold;">
+            <td>Pozycja budżetu</td>
+            <td ng-repeat="miesiac in ctlBudController.miesiace track by $index ">{{miesiac}}
+            <button class="btn btn-link" ng-if="ctlBudController.budzetyWMc[miesiac].copyable" ng-click="ctlBudController.kopiujZMc(miesiac)"><< Kopiuj</button> </td>
+            <td>Opcje</td>
+        </tr>
+        </thead>
+        <tr ng-repeat="pozycjaTabeli in ctlBudController.pozycjeTabeliArr  " style="padding:2px;" ng-if="pozycjaTabeli.visible">
+            <td style="vertical-align:8px;padding:4px;padding-left:{{pozycjaTabeli.poziom*10}}px;">{{pozycjaTabeli.nazwa}}</td>
+            <td ng-repeat="miesiac in ctlBudController.miesiace track by $index">
+
+                <input ng-disabled="!pozycjaTabeli.editable || ctlBudController.budzetObiektu.status != 'NOWY'
+                 ||!ctlBudController.budzetyWMc[miesiac].editable"
+                       class="form-control" type="text"
+                       style="maring:0px;padding:2px;border:0px;text-align:right;padding-left: 8px; padding-right: 8px;"
+                       ng-model="ctlBudController.pozycjeTabeliObj[pozycjaTabeli.kod].wartosciBudzetu[miesiac].wartosc"
+                       ng-change="ctlBudController.onChangeValue(pozycjaTabeli,miesiac);">
+
+            </td>
+            <td style="padding:5px;vertical-align: middle;">
+                <button class="btn btn-xs" type="button"
+                        ng-click="ctlBudController.onClickRozwin(pozycjaTabeli);"
+                        ng-if="pozycjaTabeli.rozwijalna">
+                    {{pozycjaTabeli.rozwinieta ?'Zwiń' : 'Rozwiń'}}
+                </button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

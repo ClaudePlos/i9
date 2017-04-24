@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<div class="row" ng-controller="EgrCompanyContactsCtrl as contactsCtrl">
+
+    <div class="col-sm-3">
+        <div>
+            <span style="display:inline-block;"><h5>Tabelka historia</h5></span>
+            <button class="btn btn-primary pull-right btn-xs" ng-click="contactsCtrl.onClickAddContact()">Dodaj kontakt
+            </button>
+
+        </div>
+        <div style="height: 200px;" ag-grid="contactsCtrl.contactsHistoryTableDef" class="ag-fresh">
+        </div>
+    </div>
+
+    <div class="col-sm-9">
+        <div ng-include="'pl/egeria/companys/parts/elContact.html'" style="width:100%;">
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

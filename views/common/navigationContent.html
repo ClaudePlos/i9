@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<ul side-navigation class="nav metismenu" id="side-menu">
+    <li class="nav-header">
+
+        <div class="dropdown profile-element" dropdown>
+            <a class="dropdown-toggle" dropdown-toggle href>
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">{{main.userName}}</strong>
+                             </span>
+                                <span class="text-muted text-xs block">Example menu<b class="caret"></b></span>
+                            </span>
+            </a>
+            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                <li><a href="">Logout</a></li>
+            </ul>
+        </div>
+        <div class="logo-element">
+            IN+
+        </div>
+
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="index.main"><i class="fa fa-laptop"></i> <span class="nav-label">Main page</span> </a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="index.minor"><i class="fa fa-desktop"></i> <span class="nav-label">Minor page</span></a>
+    </li>
+
+    <li ng-class="{active: $state.includes('crm')}">
+        <a href=""><i class="fa fa-files-o"></i> <span class="nav-label">CRM</span><span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level" ng-class="{in: $state.includes('crm')}">
+            <li><a ui-sref="crm.companys">Firmy</a></li>
+        </ul>
+    </li>
+
+    <li ng-class="{active: $state.includes('ctl')}">
+        <a href=""><i class="fa fa-files-o"></i> <span class="nav-label">Controlling</span><span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level" ng-class="{in: $state.includes('ctl.mc')}">
+            <li><a ui-sref="ctl.mc">Jeden Mc</a></li>
+        </ul>
+    </li>
+    <!-- CRM -->
+    <!--<li ng-class="{active: $state.includes('crm')}">-->
+    <!--<a href=""><i class="fa fa-files-o"></i> <span class="nav-label">CRM</span><span class="fa arrow"></span></a>-->
+    <!--<ul class="nav nav-second-level" ng-class="{in: $state.includes('crm')}">-->
+    <!--<li ui-sref-active="active"><a ui-sref="pages.search_results">Search results</a></li>-->
+    <!--<li><a ui-sref="companys">Firmy</a></li>-->
+    <!--<li><a ui-sref="errorOne">404 Page</a></li>-->
+    <!--<li><a ui-sref="errorTwo">500 Page</a></li>-->
+    <!--<li><a ui-sref="login">Login</a></li>-->
+    <!--<li><a ui-sref="login_two_columns">Login v.2</a></li>-->
+    <!--<li><a ui-sref="forgot_password">Forgot password</a></li>-->
+    <!--<li><a ui-sref="register">Register</a></li>-->
+    <!--<li ui-sref-active="active"><a ui-sref="pages.empy_page">Empty page</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+
+    <!-- -->
+</ul>
+</body>
+</html>
