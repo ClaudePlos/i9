@@ -39,6 +39,7 @@ module pl.egeria.ctl {
 
         edytujBudzetSkKod;
         edytujBudzetRd;
+        edytujBudzetRd2;
         rozwin_analityke;
         jednostka_organizacyjna = "00";
 
@@ -91,6 +92,12 @@ module pl.egeria.ctl {
         }
 
         public onEdytujBudzet() {
+
+            if ( this.edytujBudzetRd == "*" ){
+                toastr.warning("Pole 'rd:' ma oznaczenie *. Budzet przygotuje na: " + this.edytujBudzetRd2);
+                this.edytujBudzetRd = this.edytujBudzetRd2;
+            }
+
             if (!this.selectedRow) {
                 toastr.warning("Podświetl rekord dla którego chcesz edytować budżet");
                 return;
@@ -142,6 +149,9 @@ module pl.egeria.ctl {
                         return a.obPelnyKod.localeCompare(b.obPelnyKod);
                     return 0;
                 });
+
+                console.log("Test");
+                console.log(this.kosztyMc);
 
                 this.budujDrzewo();
             });
@@ -312,6 +322,7 @@ module pl.egeria.ctl {
 
                 this.edytujBudzetSkKod = this.selectedRow.skKod;
                 this.edytujBudzetRd = this.selectedRow.rd;
+                this.edytujBudzetRd2 = this.selectedRow.rd2;
             }
         }
 
