@@ -56,6 +56,10 @@ var pl;
                     this.$scope.$broadcast("onPokazBudzet", { skKod: "C246", okres: "04-2015", rd: "531" });
                 };
                 CtlController.prototype.onEdytujBudzet = function () {
+                    if (this.edytujBudzetRd == "*") {
+                        toastr.warning("Pole 'rd:' ma oznaczenie *. Budzet przygotuje na: " + this.edytujBudzetRd2);
+                        this.edytujBudzetRd = this.edytujBudzetRd2;
+                    }
                     if (!this.selectedRow) {
                         toastr.warning("Podświetl rekord dla którego chcesz edytować budżet");
                         return;
@@ -100,6 +104,8 @@ var pl;
                                 return a.obPelnyKod.localeCompare(b.obPelnyKod);
                             return 0;
                         });
+                        console.log("Test");
+                        console.log(_this.kosztyMc);
                         _this.budujDrzewo();
                     });
                 };
@@ -244,6 +250,7 @@ var pl;
                     if (this.selectedRow && this.selectedRow.skKod) {
                         this.edytujBudzetSkKod = this.selectedRow.skKod;
                         this.edytujBudzetRd = this.selectedRow.rd;
+                        this.edytujBudzetRd2 = this.selectedRow.rd2;
                     }
                 };
                 CtlController.prototype.onCellDoubleClicked = function (cell) {
@@ -293,19 +300,23 @@ var pl;
                             cellDoubleClicked: function (data) {
                                 _this.onDblClickKsiegowanie(data);
                             }
+                            //rowSelected: function (row) {
+                            //    rowSelected(row);
+                            //},
+                            //cellDoubleClicked: onCellDoubleClicked
                         };
                     this.gridOptionsListaKSiegowan.columnDefs = [
-                        { headerName: "Frm", headerTooltip: "Firma", field: "frmNazwa", width: 180, percentWidth: 100 },
+                        { headerName: "Nr Wlasny", field: "dokNumerWlasny", width: 200, percentWidth: 100 },
+                        { headerName: "Kwota", field: "kwota", width: 80, percentWidth: 100, cellClass: "ctlValueCell", cellRenderer: this.cellRendererCs },
+                        { headerName: "Tresc", field: "ksTresc", width: 350, percentWidth: 100 },
+                        { headerName: "kntNazwa", field: "kntNazwa", width: 350, percentWidth: 100 },
+                        { headerName: "skKod", field: "skKod", width: 80, percentWidth: 100 },
+                        { headerName: "Frm", field: "frmNazwa", width: 180, percentWidth: 100 },
                         { headerName: "Rd", field: "rd", width: 50, percentWidth: 100 },
-                        { headerName: "skKod", field: "skKod", width: 100, percentWidth: 100 },
                         { headerName: "Konto", valueGetter: 'data.syntetyka', width: 120, percentWidth: 100 },
-                        { headerName: "Data", field: "dokDataOperacji", width: 110, percentWidth: 100 },
-                        { headerName: "Nr Obcy", field: "dokNumberObcy", width: 150, percentWidth: 100 },
-                        { headerName: "Nr Wlasny", field: "dokNumerWlasny", width: 150, percentWidth: 100 },
-                        { headerName: "Kwota", field: "kwota", width: 100, percentWidth: 100 },
-                        { headerName: "klKodPod", field: "klKodPod", width: 100, percentWidth: 100 },
-                        { headerName: "Tresc", field: "ksTresc", width: 100, percentWidth: 100 },
-                        { headerName: "kntNazwa", field: "kntNazwa", width: 100, percentWidth: 100 },
+                        { headerName: "Data", field: "dokDataOperacji", width: 100, percentWidth: 100 },
+                        { headerName: "Nr Obcy", field: "dokNumberObcy", width: 100, percentWidth: 100 },
+                        { headerName: "klKodPod", field: "klKodPod", width: 60, percentWidth: 100 },
                     ];
                     // show popup
                 };
@@ -387,6 +398,7 @@ var pl;
                             // get column def
                             rowStr = rowStr + valRaw;
                             rowStr = rowStr + "</td>\n";
+                            //csvData +=
                         }
                         rowStr += "</tr>\n";
                         htmlTable += rowStr;
@@ -439,7 +451,7 @@ var pl;
                     var columnDefs = [];
                     columnDefs.push({
                         headerName: "Jednostka Org.",
-						headerTooltip: "Jednostka",
+                        headerTooltip: "Jednostka",
                         field: "skOpis",
                         width: 400,
                         percentWidth: 100,
@@ -521,7 +533,7 @@ var pl;
                         var synt = this.syntetykiArr[i];
                         columnDefs.push({
                             headerGroup: synt.nazwa,
-							headerTooltip: synt.nazwa,
+                            headerTooltip: synt.nazwa,
                             headerName: "wartość",
                             field: synt.syntetyka,
                             width: 70,
@@ -534,7 +546,7 @@ var pl;
                         if (this.pokazuj_budzet) {
                             columnDefs.push({
                                 headerGroup: synt.nazwa,
-								headerTooltip: synt.nazwa,
+                                headerTooltip: synt.nazwa,
                                 headerName: "budżet",
                                 field: synt.syntetyka,
                                 width: 90,
@@ -544,6 +556,7 @@ var pl;
                                 syntetyka: synt,
                             });
                         }
+                        // rozwinanalityke
                     }
                     ;
                     this.ctlGridOptions.columnDefs = columnDefs;
@@ -582,7 +595,7 @@ var pl;
                                 console.log("Dodaje kolumne");
                                 var nowa_kolumna = {
                                     headerGroup: colDef.colDef.headerGroup,
-									headerTooltip: this.analityki[analityka.analityka],
+                                    headerTooltip: this.analityki[analityka.analityka],
                                     headerName: this.analityki[analityka.analityka],
                                     field: analityka.analityka,
                                     width: 80,
@@ -597,6 +610,20 @@ var pl;
                                 };
                                 kolumny_analityk.push(nowa_kolumna);
                                 this.ctlGridOptions.columnDefs.splice(idx, 0, nowa_kolumna);
+                                // budzet
+                                //if (this.pokazuj_budzet) {
+                                //    columnDefs.push({
+                                //        headerGroup: synt.nazwa,
+                                //        headerName: "budżet",
+                                //        field: synt.syntetyka,
+                                //        width: 90,
+                                //        cellRenderer: this.cellRendererBu,
+                                //        cellClass: "ctlValueCell",
+                                //        rodzajKosztu: synt.syntetyka,
+                                //        syntetyka:synt,
+                                //    });
+                                //}
+                                // rozwinanalityke
                             }
                         }
                         colDef.kolumny_analityk = kolumny_analityk;
@@ -626,11 +653,13 @@ var pl;
                                 eHeader.style.color = '';
                                 params.colDef.analityka_rozwinieta = false;
                                 self.zwinKolumne(params);
+                                //self.przeliczKolumny();
                             }
                             else {
                                 eHeader.style.color = 'red';
                                 params.colDef.analityka_rozwinieta = true;
                                 self.rozwinKolumne(params, true);
+                                //self.przeliczKolumny();
                             }
                         }
                     });
@@ -833,10 +862,10 @@ var pl;
                     //];
                     // {"etykieta": "Dywizja Catering", "frmId": "*", "dywizja": "C"},
                 };
-                CtlController.CONTROLLER_NAME = "egeria.CtlController";
-                CtlController.$inject = ['$rootScope', '$scope', ctl.CtlService.SERVICE_NAME, "$window"];
                 return CtlController;
             }());
+            CtlController.CONTROLLER_NAME = "egeria.CtlController";
+            CtlController.$inject = ['$rootScope', '$scope', ctl.CtlService.SERVICE_NAME, "$window"];
             ctl.CtlController = CtlController;
             angular
                 .

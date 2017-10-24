@@ -21,7 +21,7 @@ var pl;
                         this[atr] = obj[atr];
                 }
                 return CtlPozycjaTabeli;
-            })();
+            }());
             ctl.CtlPozycjaTabeli = CtlPozycjaTabeli;
             ;
             var CtlBudController = (function () {
@@ -108,8 +108,7 @@ var pl;
                         nazwa: "Przychody",
                         kod: CtlBudController.BUD_SUMA_PRZYCHOD,
                         nadrzedna: wynik,
-                        editable: false,
-                        rozwijalna: false
+                        editable: false, rozwijalna: false
                     });
                     var iloscOsobodni = this.tworzPozycjeTabeli({
                         nazwa: "Ilość osobodni",
@@ -128,8 +127,7 @@ var pl;
                     var przychodFiskalny = this.tworzPozycjeTabeli({
                         nazwa: this.budzetObiektu.rodzajDzialalnosci == '531' ? "Przychód dodatkowy (kwota)" : "Przychód z faktury",
                         kod: CtlBudController.KOD_PRZYCHOD_DODATKOWY,
-                        nadrzedna: przychody,
-                        rozwijalna: false
+                        nadrzedna: przychody, rozwijalna: false
                     });
                     // pozycje wsadu
                     var wsad = this.tworzPozycjeTabeli({
@@ -150,8 +148,7 @@ var pl;
                         nazwa: "Koszty",
                         kod: CtlBudController.KOD_KOSZTY_RAZEM,
                         nadrzedna: wynik,
-                        editable: false,
-                        rozwijalna: false
+                        editable: false, rozwijalna: false
                     });
                     for (var idSynt in this.ctlService.syntetykiArr) {
                         // dodaj pozycje
@@ -164,6 +161,8 @@ var pl;
                             rozwinieta: false,
                             nadrzedna: koszty
                         });
+                        //koszty.podrzedne.push(pozycjaSynt);
+                        // analityki
                         for (var idAnal in synt.analityki) {
                             var anal = synt.analityki[idAnal];
                             var pozycjaAnal = this.tworzPozycjeTabeli({
@@ -171,9 +170,9 @@ var pl;
                                 nazwa: anal.nazwa + " (" + anal.analityka + ")",
                                 syntetyka: synt.syntetyka,
                                 analityka: anal.analityka,
-                                nadrzedna: pozycjaSynt,
-                                rozwijalna: false
+                                nadrzedna: pozycjaSynt, rozwijalna: false
                             });
+                            //this.pozycjeTabeliArr.push( pozycjaAnal );
                         }
                     }
                 };
@@ -209,11 +208,9 @@ var pl;
                             grupa: waZ.grupa,
                             wartosc: waZ.wartosc,
                             okres: budzetDo.okres,
-                            konto5: waZ.konto5,
-                            skKod: waZ.skKod,
-                            analityka: waZ.analityka,
-                            syntetyka: waZ.syntetyka
+                            konto5: waZ.konto5, skKod: waZ.skKod, analityka: waZ.analityka, syntetyka: waZ.syntetyka
                         });
+                        // znajdz odpowiednia pozycje
                     }
                     budzetDo.modified = true;
                     this.generujWartosciBudzetu(budzetDo);
@@ -370,7 +367,8 @@ var pl;
                     var stawkaOsobodzien = this.pozycjeTabeliObj[CtlBudController.BUD_WSK_STAWKA];
                     // przychod dod
                     var przychodDod = this.pozycjeTabeliObj[CtlBudController.KOD_PRZYCHOD_DODATKOWY];
-                    przychody.wartosciBudzetu[mc].wartosc = this.formatKwota(this.asNumber(iloscOsobodni.wartosciBudzetu[mc].wartosc) * this.asNumber(stawkaOsobodzien.wartosciBudzetu[mc].wartosc) + this.asNumber(przychodDod.wartosciBudzetu[mc].wartosc));
+                    przychody.wartosciBudzetu[mc].wartosc = this.formatKwota(this.asNumber(iloscOsobodni.wartosciBudzetu[mc].wartosc) * this.asNumber(stawkaOsobodzien.wartosciBudzetu[mc].wartosc)
+                        + this.asNumber(przychodDod.wartosciBudzetu[mc].wartosc));
                     // licz wsad
                     var wsad = this.pozycjeTabeliObj[CtlBudController.BUD_WSK_WSAD];
                     var wsadStawka = this.pozycjeTabeliObj[CtlBudController.BUD_WSK_WSAD_JEDNOSTKOWY];
@@ -382,24 +380,23 @@ var pl;
                     //console.log(this.asNumber(koszty.wartosciBudzetu[mc].wartosc));
                     wynik.wartosciBudzetu[mc].wartosc = this.formatKwota(this.asNumber(przychody.wartosciBudzetu[mc].wartosc) - this.asNumber(koszty.wartosciBudzetu[mc].wartosc) - this.asNumber(wsad.wartosciBudzetu[mc].wartosc));
                 };
-                CtlBudController.CONTROLLER_NAME = "CtlBudController";
-                CtlBudController.BUD_SUMA_PRZYCHOD = "BUD_SUMA_PRZYCHOD";
-                CtlBudController.BUD_SUMA_ILOSC_POSILKOW = "BUD_SUMA_ILOSC_POSILKOW";
-                CtlBudController.BUD_WSK_STAWKA = "BUD_WSK_STAWKA";
-                CtlBudController.KOD_PRZYCHOD_DODATKOWY = "PRZYCHOD_DODATKOWY";
-                CtlBudController.BUD_WSK_WSAD = "BUD_WSK_WSAD";
-                CtlBudController.BUD_WSK_WSAD_JEDNOSTKOWY = "BUD_WSK_WSAD_JEDNOSTKOWY";
-                CtlBudController.KOD_WYNIK = "WYNIK";
-                CtlBudController.KOD_KOSZTY_RAZEM = "KOSZTY_RAZEM";
-                // narzut kuchni
-                CtlBudController.BUD_NARZUT_KUCHNI = "BUD_NARZUT_KUCHNI";
-                CtlBudController.BUD_NARZUT_KUCHNI_STAWKA = "BUD_NARZUT_KUCHNI_STAWKA";
-                CtlBudController.$inject = ['$rootScope', '$scope', pl.egeria.ctl.CtlService.SERVICE_NAME];
                 return CtlBudController;
-            })();
+            }());
+            CtlBudController.CONTROLLER_NAME = "CtlBudController";
+            CtlBudController.BUD_SUMA_PRZYCHOD = "BUD_SUMA_PRZYCHOD";
+            CtlBudController.BUD_SUMA_ILOSC_POSILKOW = "BUD_SUMA_ILOSC_POSILKOW";
+            CtlBudController.BUD_WSK_STAWKA = "BUD_WSK_STAWKA";
+            CtlBudController.KOD_PRZYCHOD_DODATKOWY = "PRZYCHOD_DODATKOWY";
+            CtlBudController.BUD_WSK_WSAD = "BUD_WSK_WSAD";
+            CtlBudController.BUD_WSK_WSAD_JEDNOSTKOWY = "BUD_WSK_WSAD_JEDNOSTKOWY";
+            CtlBudController.KOD_WYNIK = "WYNIK";
+            CtlBudController.KOD_KOSZTY_RAZEM = "KOSZTY_RAZEM";
+            // narzut kuchni
+            CtlBudController.BUD_NARZUT_KUCHNI = "BUD_NARZUT_KUCHNI";
+            CtlBudController.BUD_NARZUT_KUCHNI_STAWKA = "BUD_NARZUT_KUCHNI_STAWKA";
+            CtlBudController.$inject = ['$rootScope', '$scope', pl.egeria.ctl.CtlService.SERVICE_NAME];
             ctl.CtlBudController = CtlBudController;
             angular.module('iNaprzod').controller(CtlBudController.CONTROLLER_NAME, CtlBudController);
         })(ctl = egeria.ctl || (egeria.ctl = {}));
     })(egeria = pl.egeria || (pl.egeria = {}));
 })(pl || (pl = {}));
-//# sourceMappingURL=CtlBudController.js.map

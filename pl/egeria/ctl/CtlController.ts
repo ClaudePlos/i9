@@ -360,43 +360,43 @@ module pl.egeria.ctl {
         public createTableKsiegowania() {
             this.gridOptionsListaKSiegowan =
 
-            {
-                headerHeight: 35,
-                enableColResize: true,
-                virtualPaging: true,
-                rowSelection: 'single',
+                {
+                    headerHeight: 35,
+                    enableColResize: true,
+                    virtualPaging: true,
+                    rowSelection: 'single',
 
-                rowDeselection: true,
-                enableServerSideSorting: true,
-                suppressCellSelection: true,
-                dataSource: {
-                    pageSize: 100,
-                    overflowSize: 100,
-                    maxConcurrentRequests: 1,
-                    maxPagesInCache: 2
-                },
+                    rowDeselection: true,
+                    enableServerSideSorting: true,
+                    suppressCellSelection: true,
+                    dataSource: {
+                        pageSize: 100,
+                        overflowSize: 100,
+                        maxConcurrentRequests: 1,
+                        maxPagesInCache: 2
+                    },
 
-                cellDoubleClicked: (data)=> {
-                    this.onDblClickKsiegowanie(data)
-                }
-                //rowSelected: function (row) {
-                //    rowSelected(row);
-                //},
-                //cellDoubleClicked: onCellDoubleClicked
-            };
+                    cellDoubleClicked: (data)=> {
+                        this.onDblClickKsiegowanie(data)
+                    }
+                    //rowSelected: function (row) {
+                    //    rowSelected(row);
+                    //},
+                    //cellDoubleClicked: onCellDoubleClicked
+                };
 
             this.gridOptionsListaKSiegowan.columnDefs = [
+                {headerName: "Nr Wlasny", field: "dokNumerWlasny", width: 200, percentWidth: 100},
+                {headerName: "Kwota", field: "kwota", width: 80, percentWidth: 100, cellClass: "ctlValueCell", cellRenderer: this.cellRendererCs},
+                {headerName: "Tresc", field: "ksTresc", width: 350, percentWidth: 100},
+                {headerName: "kntNazwa", field: "kntNazwa", width: 350, percentWidth: 100},
+                {headerName: "skKod", field: "skKod", width: 80, percentWidth: 100},
                 {headerName: "Frm", field: "frmNazwa", width: 180, percentWidth: 100},
                 {headerName: "Rd", field: "rd", width: 50, percentWidth: 100},
-                {headerName: "skKod", field: "skKod", width: 100, percentWidth: 100},
                 {headerName: "Konto", valueGetter: 'data.syntetyka', width: 120, percentWidth: 100},
-                {headerName: "Data", field: "dokDataOperacji", width: 110, percentWidth: 100},
-                {headerName: "Nr Obcy", field: "dokNumberObcy", width: 150, percentWidth: 100},
-                {headerName: "Nr Wlasny", field: "dokNumerWlasny", width: 150, percentWidth: 100},
-                {headerName: "Kwota", field: "kwota", width: 100, percentWidth: 100},
-                {headerName: "klKodPod", field: "klKodPod", width: 100, percentWidth: 100},
-                {headerName: "Tresc", field: "ksTresc", width: 100, percentWidth: 100},
-                {headerName: "kntNazwa", field: "kntNazwa", width: 100, percentWidth: 100},
+                {headerName: "Data", field: "dokDataOperacji", width: 100, percentWidth: 100},
+                {headerName: "Nr Obcy", field: "dokNumberObcy", width: 100, percentWidth: 100},
+                {headerName: "klKodPod", field: "klKodPod", width: 60, percentWidth: 100},
             ];
             // show popup
 
