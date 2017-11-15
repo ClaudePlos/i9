@@ -292,6 +292,27 @@ var pl;
                         _this.budzetObiektu.modified = false;
                     });
                 };
+                //onClickKopiujDoOkresu
+                CtlBudController.prototype.onClickSaveBudOkres = function () {
+                    var _this = this;
+                    console.log("onClickSaveBud");
+                    // create data fo save
+                    var toSave = [];
+                    var pozWynik = this.pozycjeTabeliObj[CtlBudController.KOD_WYNIK];
+                    this.dodajDoZapisu(toSave, pozWynik);
+                    console.dir(toSave);
+                    // save
+                    this.ctlService.saveBudzetDoOkresu(toSave, this.budzetObiektu.okres, this.mcDoDodaniaDo).then(function (res) {
+                        console.log("Dane budżetu zostały zapisane");
+                        toastr.info("Dane budżetu zostały zapisane!");
+                        _this.budzetObiektu = res.data;
+                        _this.budzetObiektu.editable = true;
+                        _this.generujWierszeTabeli();
+                        console.log("Wygenerowano");
+                        _this.generujWartosciBudzetu(_this.budzetObiektu);
+                        _this.budzetObiektu.modified = false;
+                    });
+                };
                 CtlBudController.prototype.onClickDoAkceptacji = function () {
                     var _this = this;
                     console.log("onClickDoAkceptacji");

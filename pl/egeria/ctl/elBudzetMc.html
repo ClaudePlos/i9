@@ -29,6 +29,16 @@
 
 
 
+        <button type="button" class="form-element btn"
+        ng-disabled="!ctlBudController.budzetObiektu.modified"
+        ng-if="ctlBudController.budzetObiektu.status == 'NOWY'"
+        ng-click="ctlBudController.onClickSaveBudOkres()">Zapisz do końca okresu:</button>
+        <input type="text" class="form-element"
+        ng-model="ctlBudController.mcDoDodaniaDo"
+        placeholder="mm-yyyy"></input>
+
+
+
         <button type="button" class="form-element btn" ng-click="ctlBudController.onClickDodajMiesiac()">
             Dodatkowy miesiąc:
         </button>

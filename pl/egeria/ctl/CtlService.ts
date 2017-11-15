@@ -123,6 +123,21 @@ module pl.egeria.ctl {
             return this.$http(req);
         }
 
+        public saveBudzetDoOkresu(dane, okresOd, okresDo) {
+            var req = {
+                method: 'POST',
+                url: this.mainUrl + "/N1-Controlling-web/resources/budzet/sk/okres/wartosci",
+                data: dane,
+                params: {
+                    okresOd: okresOd,
+                    okresDo: okresDo
+                }
+
+            }
+
+            return this.$http(req);
+        }
+
         public zmienStatus(wierszBudzetu, nowyStatus) {
 
             var c = this;

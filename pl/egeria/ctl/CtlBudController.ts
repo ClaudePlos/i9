@@ -64,6 +64,7 @@ module pl.egeria.ctl {
         miesiacEdycji:string;
         budzetObiektu;
         mcDoDodania:string;
+        mcDoDodaniaDo:string;
         budzetyWMc = {};
 
         constructor($rootScope, $scope, ctlService) {
@@ -375,6 +376,36 @@ module pl.egeria.ctl {
                 }
             );
         }
+
+
+        //onClickKopiujDoOkresu
+        public onClickSaveBudOkres() {
+            console.log("onClickSaveBud");
+
+            // create data fo save
+            var toSave = [];
+            var pozWynik = this.pozycjeTabeliObj[CtlBudController.KOD_WYNIK];
+            this.dodajDoZapisu(toSave, pozWynik);
+            console.dir(toSave);
+            // save
+            this.ctlService.saveBudzetDoOkresu(toSave, this.budzetObiektu.okres, this.mcDoDodaniaDo ).then
+            (
+                (res)=> {
+                    console.log("Dane budżetu zostały zapisane");
+                    toastr.info("Dane budżetu zostały zapisane!");
+                    this.budzetObiektu = res.data;
+                    this.budzetObiektu.editable = true;
+                    this.generujWierszeTabeli();
+                    console.log("Wygenerowano");
+                    this.generujWartosciBudzetu(this.budzetObiektu);
+                    this.budzetObiektu.modified = false;
+
+
+                }
+            );
+        }
+
+
 
         public  onClickDoAkceptacji() {
             console.log("onClickDoAkceptacji");
