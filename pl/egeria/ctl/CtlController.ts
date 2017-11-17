@@ -94,6 +94,11 @@ module pl.egeria.ctl {
         public onEdytujBudzet() {
 
             if ( this.edytujBudzetRd == "*" ){
+
+                if ( this.edytujBudzetRd2 = '740' ){ // na Z156 są WZ z kosztem sprzedazy na 740 i przyjmuje 740 niepotrzebnie
+                    this.edytujBudzetRd2 = '501';
+                }
+
                 toastr.warning("Pole 'rd:' ma oznaczenie *. Budzet przygotuje na: " + this.edytujBudzetRd2);
                 this.edytujBudzetRd = this.edytujBudzetRd2;
             }
