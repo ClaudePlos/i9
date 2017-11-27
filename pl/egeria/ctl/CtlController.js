@@ -18,6 +18,7 @@ var pl;
                     this.pokazuj_wszystkie_obiekty = false;
                     this.pokazuj_budzet = true;
                     this.jednostka_organizacyjna = "00";
+                    this.loading = false;
                     this.ctlService = ctlService;
                     this.$scope = $scope;
                     this.$rootScope = $rootScope;
@@ -45,9 +46,12 @@ var pl;
                     }
                 };
                 CtlController.prototype.onClickOdswiez = function () {
+                    var _this = this;
                     var s = this;
                     // save params
+                    this.loading = true;
                     this.ctlService.odswiezDane(this.mcAnalizy, { pokazuj_wszystkie_obiekty: this.pokazuj_wszystkie_obiekty }).then(function (result) {
+                        _this.loading = false;
                         alert(result.data.message);
                         s.onGetKosztyWMc();
                     });
@@ -57,6 +61,9 @@ var pl;
                 };
                 CtlController.prototype.onEdytujBudzet = function () {
                     if (this.edytujBudzetRd == "*") {
+                        if (this.edytujBudzetRd2 = '740') {
+                            this.edytujBudzetRd2 = '501';
+                        }
                         toastr.warning("Pole 'rd:' ma oznaczenie *. Budzet przygotuje na: " + this.edytujBudzetRd2);
                         this.edytujBudzetRd = this.edytujBudzetRd2;
                     }
@@ -862,10 +869,10 @@ var pl;
                     //];
                     // {"etykieta": "Dywizja Catering", "frmId": "*", "dywizja": "C"},
                 };
+                CtlController.CONTROLLER_NAME = "egeria.CtlController";
+                CtlController.$inject = ['$rootScope', '$scope', ctl.CtlService.SERVICE_NAME, "$window"];
                 return CtlController;
             }());
-            CtlController.CONTROLLER_NAME = "egeria.CtlController";
-            CtlController.$inject = ['$rootScope', '$scope', ctl.CtlService.SERVICE_NAME, "$window"];
             ctl.CtlController = CtlController;
             angular
                 .

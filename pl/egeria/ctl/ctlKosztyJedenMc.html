@@ -48,11 +48,14 @@
 
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-xs btn-primary" ng-click="ctlCtrl.onGetKosztyWMc();">Odśwież</button>
+                            <button type="button" class="btn btn-xs btn-primary"
+                                    ng-click="ctlCtrl.onGetKosztyWMc();">Odśwież</button>
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-xs btn-info" ng-click="ctlCtrl.onClickOdswiez();">Przelicz dane ponownie
+                            <button type="button" class="btn btn-xs btn-info"
+                                    ng-disabled="ctlCtrl.loading"
+                                    ng-click="ctlCtrl.onClickOdswiez();">Przelicz dane ponownie
                                 (dłuższe)
                             </button>
                         </div>
@@ -192,7 +195,8 @@
                     <div class="ibox">
 
 
-                        <div class="ibox-content" style="height:400px;"> -->
+                        <div class="ibox-content" style="height:400px;">
+ -->
                             <!-- tabelka koszty -->
 
                     <!--    </div>
@@ -200,7 +204,8 @@
 
                 </div>
 
-            </div> -->
+            </div>
+ -->
             
             <br>
 

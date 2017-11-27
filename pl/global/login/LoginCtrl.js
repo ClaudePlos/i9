@@ -43,7 +43,8 @@ var pl;
                 };
                 LoginCtrl.prototype.login = function () {
                     var ctrl = this;
-                    if (this.loginUser.username.length != 0 && this.loginUser.password.length != 0) {
+                    if (this.loginUser.username.length != 0
+                        && this.loginUser.password.length != 0) {
                         this.loginService.login(this.loginUser.username, this.loginUser.password).then(function (res) {
                             console.log("Logged In");
                             ctrl.$cookies["token"] = res.data.token;
@@ -57,10 +58,10 @@ var pl;
                 // we store edited company in var editedCompany
                 LoginCtrl.CTRL_NAME = "LoginCtrl";
                 return LoginCtrl;
-            })();
+            }());
             login.LoginCtrl = LoginCtrl;
             angular.module('iNaprzod').controller(LoginCtrl.CTRL_NAME, LoginCtrl);
+            //angular.module('iNaprzod').config( configLogin );
         })(login = global.login || (global.login = {}));
     })(global = pl.global || (pl.global = {}));
 })(pl || (pl = {}));
-//# sourceMappingURL=LoginCtrl.js.map

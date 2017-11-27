@@ -16,8 +16,7 @@ var pl;
                     var req = {
                         url: this.serviceUrl,
                         data: {
-                            uzNazwa: username,
-                            uzHaslo: password
+                            uzNazwa: username, uzHaslo: password
                         },
                         method: "POST"
                     };
@@ -25,10 +24,9 @@ var pl;
                 };
                 LoginService.$inject = ['$http', '$cookies', 'mainUrl'];
                 return LoginService;
-            })();
+            }());
             login.LoginService = LoginService;
             angular.module('iNaprzod').service("LoginService", LoginService);
         })(login = global.login || (global.login = {}));
     })(global = pl.global || (pl.global = {}));
 })(pl || (pl = {}));
-//# sourceMappingURL=LoginService.js.map

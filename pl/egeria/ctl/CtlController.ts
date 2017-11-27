@@ -42,6 +42,7 @@ module pl.egeria.ctl {
         edytujBudzetRd2;
         rozwin_analityke;
         jednostka_organizacyjna = "00";
+        loading = false;
 
         constructor($rootScope, $scope, ctlService, $window) {
             this.ctlService = ctlService;
@@ -77,10 +78,11 @@ module pl.egeria.ctl {
         public onClickOdswiez() {
             var s = this;
             // save params
+            this.loading = true;
 
             this.ctlService.odswiezDane(this.mcAnalizy, {pokazuj_wszystkie_obiekty: this.pokazuj_wszystkie_obiekty}).then
             ((result)=> {
-
+                this.loading = false;
                 alert(result.data.message);
                 s.onGetKosztyWMc();
 
