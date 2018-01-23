@@ -207,6 +207,7 @@ module pl.egeria.ctl {
                 console.log("query");
                 s.$http(req).then((result)=> {
                     console.log("got");
+                    //console.log(result.data);
                     resolve(result.data);
                 });
 

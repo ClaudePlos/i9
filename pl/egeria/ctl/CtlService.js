@@ -161,6 +161,7 @@ var pl;
                         console.log("query");
                         s.$http(req).then(function (result) {
                             console.log("got");
+                            //console.log(result.data);
                             resolve(result.data);
                         });
                     });

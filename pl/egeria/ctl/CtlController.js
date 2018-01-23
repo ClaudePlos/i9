@@ -50,7 +50,13 @@ var pl;
                     var s = this;
                     // save params
                     this.loading = true;
+                    this.ctlService.odswiezDane('12-2010', { pokazuj_wszystkie_obiekty: this.pokazuj_wszystkie_obiekty }).then(function (result) {
+                        console.log("end1");
+                        // this.loading = false;
+                        // alert(result.data.message);
+                    });
                     this.ctlService.odswiezDane(this.mcAnalizy, { pokazuj_wszystkie_obiekty: this.pokazuj_wszystkie_obiekty }).then(function (result) {
+                        console.log("end2");
                         _this.loading = false;
                         alert(result.data.message);
                         s.onGetKosztyWMc();
@@ -117,7 +123,7 @@ var pl;
                     });
                 };
                 CtlController.prototype.rozwinJo = function (wiersz) {
-                    console.log("rozwinJo");
+                    console.log("rozwinJo-171");
                     console.dir(wiersz);
                     var idx = this.wierszeWidoczne.indexOf(wiersz);
                     for (var i = wiersz.podrzedne.length - 1; i >= 0; i--) {
@@ -171,6 +177,8 @@ var pl;
                     });
                     this.ctlGridOptions.rowData = this.wierszeWidoczne;
                     //rozwn porzedne
+                    console.log("budujDrzewo-function");
+                    console.log(this.daneDrzewo);
                     for (var i = 0; i < this.daneDrzewo.length; i++) {
                         this.rozwinJo(this.daneDrzewo[i]);
                     }
@@ -281,8 +289,10 @@ var pl;
                         if (cell.data.rozwiniety) {
                             this.zwinJo(cell.data);
                         }
-                        else
+                        else {
+                            console.log("onCellDoubleClicked-function");
                             this.rozwinJo(cell.data);
+                        }
                         this.ctlGridOptions.api.onNewRows();
                     }
                     ;
