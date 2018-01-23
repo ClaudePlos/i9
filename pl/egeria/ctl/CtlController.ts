@@ -80,20 +80,12 @@ module pl.egeria.ctl {
             // save params
             this.loading = true;
 
-            this.ctlService.odswiezDane('12-2010', {pokazuj_wszystkie_obiekty: this.pokazuj_wszystkie_obiekty}).then
-            (  (result)=> {
-                console.log("end1");
-               // this.loading = false;
-               // alert(result.data.message);
-            });
-
             this.ctlService.odswiezDane(this.mcAnalizy, {pokazuj_wszystkie_obiekty: this.pokazuj_wszystkie_obiekty}).then
             ( (result)=> {
-                console.log("end2");
+                console.log("przeliczone");
                 this.loading = false;
                 alert(result.data.message);
                 s.onGetKosztyWMc();
-
             });
         }
 
